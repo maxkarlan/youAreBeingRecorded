@@ -1,0 +1,68 @@
+<body>
+  <script>
+    
+var video = document.createElement('video');
+video.setAttribute('autoplay', '');
+video.setAttribute('muted', '');
+video.setAttribute('playsinline', '');
+video.style.position = 'absolute';
+video.style.top = '0px';
+video.style.left = '0px';
+video.style.width = '100%';
+video.style.height = '100%';
+document.body.appendChild(video);
+var canvas = document.createElement('canvas');
+canvas.style.position = 'absolute';
+canvas.style.top = '0px';
+canvas.style.left = '0px';
+canvas.style.width = '100%';
+canvas.style.height = '100%';
+document.body.appendChild(canvas);
+var context = canvas.getContext('2d');
+var constraints = {
+  audio: false,
+  video: true
+};
+navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+  video.srcObject = stream;
+  video.onloadedmetadata = function(e) {
+    video.play();
+  };
+}).catch(function(err) {
+  console.log(err.name + ": " + err.message);
+});
+var redCircle = document.createElement('div');
+redCircle.style.position = 'absolute';
+redCircle.style.top = '150px';
+redCircle.style.left = '50px';
+redCircle.style.width = '10%';
+redCircle.style.height = '10%';
+redCircle.style.backgroundColor = 'red';
+redCircle.style.borderRadius = '50%';
+redCircle.style.opacity = '0.5';
+document.body.appendChild(redCircle);
+var text = document.createElement('div');
+text.style.position = 'absolute';
+text.style.top = '50%';
+text.style.left = '50%';
+text.style.transform = 'translate(-50%, -50%)';
+text.style.fontSize = '50px';
+text.style.color = 'white';
+text.innerHTML = 'You are being recorded';
+document.body.appendChild(text);
+
+    var tint = false;
+function randomColor() {
+  return 'rgb(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ')';
+}
+function tintVideo() {
+  tint = !tint;
+  if (tint) {
+    video.style.webkitFilter = 'hue-rotate(' + Math.floor(Math.random() * 360) + 'deg)';
+  } else {
+    video.style.webkitFilter = 'hue-rotate(0deg)';
+  }
+}
+document.body.addEventListener('click', tintVideo);
+  </script>
+</body>
