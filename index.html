@@ -33,8 +33,8 @@ navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
 });
 var redCircle = document.createElement('div');
 redCircle.style.position = 'absolute';
-redCircle.style.top = '150px';
-redCircle.style.left = '50px';
+redCircle.style.top = '0px';
+redCircle.style.left = '0px';
 redCircle.style.width = '10%';
 redCircle.style.height = '10%';
 redCircle.style.backgroundColor = 'red';
@@ -50,19 +50,46 @@ text.style.fontSize = '50px';
 text.style.color = 'white';
 text.innerHTML = 'You are being recorded';
 document.body.appendChild(text);
-
-    var tint = false;
-function randomColor() {
-  return 'rgb(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ')';
-}
-function tintVideo() {
-  tint = !tint;
-  if (tint) {
-    video.style.webkitFilter = 'hue-rotate(' + Math.floor(Math.random() * 360) + 'deg)';
-  } else {
-    video.style.webkitFilter = 'hue-rotate(0deg)';
+var redCircleOpacity = 0.2;
+var redCircleOpacityDirection = 1;
+function draw() {
+  context.drawImage(video, 0, 0, canvas.width, canvas.height);
+  redCircleOpacity += redCircleOpacityDirection * 0.01;
+  if (redCircleOpacity > 1) {
+    redCircleOpacity = 1;
+    redCircleOpacityDirection = -1;
+  } else if (redCircleOpacity < 0.5) {
+    redCircleOpacity = 0.5;
+    redCircleOpacityDirection = 1;
   }
+  redCircle.style.opacity = redCircleOpacity;
+  requestAnimationFrame(draw);
 }
-document.body.addEventListener('click', tintVideo);
+draw();
+    
+    var stopRecordingButton = document.createElement('button');
+stopRecordingButton.style.position = 'absolute';
+stopRecordingButton.style.bottom = '0px';
+stopRecordingButton.style.left = '0px';
+stopRecordingButton.style.width = '100%';
+stopRecordingButton.style.height = '10%';
+stopRecordingButton.style.fontSize = '50px';
+stopRecordingButton.innerHTML = 'STOP RECORDING';
+document.body.appendChild(stopRecordingButton);
+    
+stopRecordingButton.addEventListener('click', function() {
+  var popup = window.open('', '', 'width=500,height=500');
+  var popupBody = popup.document.body;
+  popupBody.style.backgroundColor = 'black';
+  popupBody.style.color = 'white';
+  popupBody.style.fontSize = '50px';
+  popupBody.style.textAlign = 'center';
+  popupBody.innerHTML = 'VIRUS DOWNLOAD SUCCESS!';
+  var image = document.createElement('img');
+  image.src = 'https://media.tenor.com/jDu5DVTyQLcAAAAC/pepe-peppo.gif';
+  image.style.width = '100%';
+  image.style.height = '100%';
+  popupBody.appendChild(image);
+});
   </script>
 </body>
