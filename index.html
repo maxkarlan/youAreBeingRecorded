@@ -90,6 +90,25 @@ stopRecordingButton.addEventListener('click', function() {
   image.style.width = '100%';
   image.style.height = '100%';
   popupBody.appendChild(image);
+  
+  var uninstallVirusButton = document.createElement('button');
+uninstallVirusButton.style.position = 'absolute';
+uninstallVirusButton.style.bottom = '0px';
+uninstallVirusButton.style.left = '0px';
+uninstallVirusButton.style.width = '100%';
+uninstallVirusButton.style.height = '10%';
+uninstallVirusButton.style.fontSize = '50px';
+uninstallVirusButton.innerHTML = 'UNINSTALL VIRUS';
+popupBody.appendChild(uninstallVirusButton);
+  uninstallVirusButton.addEventListener('click', function() {
+  var popup = window.open('', '', 'width=500,height=500');
+  var popupBody = popup.document.body;
+  popupBody.style.backgroundColor = 'black';
+  popupBody.style.color = 'white';
+  popupBody.style.fontSize = '50px';
+  popupBody.style.textAlign = 'center';
+  popupBody.innerHTML = 'THE VIRUS HAS NOW DOWNLOADED TO YOUR BRAIN. CALL THIS NUMBER TO HAVE IT REPLACED: +1-800-REBRAIN';
+});
 });
   </script>
 </body>
