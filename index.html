@@ -101,7 +101,7 @@ uninstallVirusButton.style.fontSize = '50px';
 uninstallVirusButton.innerHTML = 'UNINSTALL VIRUS';
 popupBody.appendChild(uninstallVirusButton);
   uninstallVirusButton.addEventListener('click', function() {
-  var popup = window.open('', '', 'width=500,height=500');
+  var popup = window.open('', '', 'width=500,height=500,screenX=300,screenY=100');
   var popupBody = popup.document.body;
   popupBody.style.backgroundColor = 'black';
   popupBody.style.color = 'white';
